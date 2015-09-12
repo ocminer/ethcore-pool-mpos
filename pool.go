@@ -196,7 +196,7 @@ func handleMiner(rw http.ResponseWriter, req *http.Request) {
 
     mysqldiff := minerDifficulty * 4
 
-    db, err := sql.Open("mysql", "ethdb_user:ethdb_pass@/ethdb?charset=utf8")
+    db, err := sql.Open("mysql", "ethdb_user:ethdb_pass@/ethdb?charset=utf8")  // of course you have to enter your credentials here !
     checkErr(err)
 
     stmt, err := db.Prepare("INSERT INTO shares (time, rem_host, username, our_result, upstream_result, difficulty, reason, solution) VALUES ( NOW(), ?, ?, ?, ?, ?, NULL, ?) ")
@@ -218,7 +218,7 @@ func handleMiner(rw http.ResponseWriter, req *http.Request) {
 		stmt2, err2 := db.Prepare("INSERT INTO blocks (time, height, blockhash, confirmations, accounted) VALUES ( UNIX_TIMESTAMP(NOW()), ?, ?, '0', '0')")
 		checkErr(err2)
 
-		res2, err2 := stmt2.Exec(myBlock.number+1, mysqlmixDigest)
+		res2, err2 := stmt2.Exec(myBlock.number, mysqlmixDigest)
 		checkErr(err2)
 
 		id2, err2 := res2.LastInsertId()
