@@ -203,7 +203,7 @@ func handleMiner(rw http.ResponseWriter, req *http.Request) {
     checkErr(err)
 
     mysqlmixDigest := strings.Replace(mixDigest, "0x", "", -1)
-    res, err := stmt.Exec(remoteip, miner, oures, upres, mysqldiff, mysqlmixDigest)
+    res, err := stmt.Exec(remoteip, miner, oures, upres, mysqldiff, strings.ToLower(mysqlmixDigest))
     checkErr(err)
 
     id, err := res.LastInsertId()
@@ -218,7 +218,7 @@ func handleMiner(rw http.ResponseWriter, req *http.Request) {
 		stmt2, err2 := db.Prepare("INSERT INTO blocks (time, height, blockhash, confirmations, accounted) VALUES ( UNIX_TIMESTAMP(NOW()), ?, ?, '0', '0')")
 		checkErr(err2)
 
-		res2, err2 := stmt2.Exec(myBlock.number, mysqlmixDigest)
+		res2, err2 := stmt2.Exec(myBlock.number, strings.ToLower(mysqlmixDigest))
 		checkErr(err2)
 
 		id2, err2 := res2.LastInsertId()
