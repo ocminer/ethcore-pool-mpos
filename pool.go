@@ -114,6 +114,11 @@ func handleMiner(rw http.ResponseWriter, req *http.Request) {
 
 	vars := mux.Vars(req)
 
+        if vars["difficulty"] == "0" {
+            vars["difficulty"] = "5"
+        }
+
+
 	minerDifficulty, err := strconv.ParseFloat(vars["difficulty"], 64)
 	if err != nil {
 		logError.Println("Invalid difficulty provided: " + vars["difficulty"])
