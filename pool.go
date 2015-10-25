@@ -203,7 +203,8 @@ func handleMiner(rw http.ResponseWriter, req *http.Request) {
 
     db, err := sql.Open("mysql", "ethdb_user:ethdb_pass@/ethdb?charset=utf8")  // of course you have to enter your credentials here !
     checkErr(err)
-
+    defer db.Close()
+    
     stmt, err := db.Prepare("INSERT INTO shares (time, rem_host, username, our_result, upstream_result, difficulty, reason, solution) VALUES ( NOW(), ?, ?, ?, ?, ?, NULL, ?) ")
     checkErr(err)
 
@@ -234,7 +235,6 @@ func handleMiner(rw http.ResponseWriter, req *http.Request) {
 	}
 
 
-    db.Close()
 
 
 		fmt.Fprint(rw, okRequest)
