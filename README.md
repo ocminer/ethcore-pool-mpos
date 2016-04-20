@@ -20,13 +20,13 @@ If you want to improve the pool, implementing the connection to geth via IPC ins
 
 # Setup guide (Ubuntu 14.04)
 * Install go according to https://github.com/ethereum/go-ethereum/wiki/Installing-Go#ubuntu-1404
-* Put the pool.go file into your gopath
-* Run go get to download the dependencies
+* Put the pool.go file into your `gopath`
+* Run `$ go get` to download the dependencies
 * Adjust the ports to match your environment (poolPort and ethereumPort)
 * Start your Ethereum client & enable RPC
-* Run go build pool.go
-* Start the pool server ./pool
-* Point your miner to http://ip:port/\<account\>.\<worker\>/\<hashrate\>
+* Run `$ go build pool.go`
+* Start the pool server `$ ./pool`
+* Point your miner to `http://ip:port/\<account\>.\<worker\>/\<hashrate\>`
 
 # Donations
 Donations are always welcome:
